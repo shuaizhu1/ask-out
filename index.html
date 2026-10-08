@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Very Important Question 💌</title>
+  <meta name="description" content="I have something to ask you..." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-hearts" aria-hidden="true"></div>
+
+  <main>
+    <!-- STEP 1: The question -->
+    <section id="step-ask" class="card step active">
+      <div class="mascot bounce" aria-hidden="true">🐟🎀</div>
+      <h1><span id="greeting">Hey you</span>...</h1>
+      <p class="big">Will you go on a date with me? 🥺👉👈</p>
+      <div class="btn-row" id="btn-row">
+        <button id="yes-btn" class="btn btn-yes">Yes! 💖</button>
+        <button id="no-btn" class="btn btn-no">No</button>
+      </div>
+      <p id="no-hint" class="hint"></p>
+    </section>
+
+    <!-- STEP 2: Gifts -->
+    <section id="step-gifts" class="card step">
+      <div class="mascot" aria-hidden="true">🥳</div>
+      <h1>YAYYY!! 💕</h1>
+      <p>Okay now pick your date gifts, one from each tab 🎁</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-cat="food" role="tab">🍜 Food</button>
+        <button class="tab" data-cat="rp" role="tab">⚔️ League RP</button>
+        <button class="tab" data-cat="plush" role="tab">🎀 Sanrio Plushies</button>
+      </div>
+
+      <p id="tab-note" class="tab-note"></p>
+      <div id="gift-grid" class="gift-grid"></div>
+
+      <div class="cart">
+        <button id="gifts-next" class="btn btn-yes small" disabled>Next ➜</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: When -->
+    <section id="step-when" class="card step">
+      <div class="mascot" aria-hidden="true">📅</div>
+      <h1>When are you free?</h1>
+      <label class="field">
+        <span>Pick a day</span>
+        <input type="date" id="date-input" />
+      </label>
+      <label class="field">
+        <span>Pick a time</span>
+        <select id="time-input">
+          <option value="Brunch (11am)">Brunch (11am) 🥞</option>
+          <option value="Afternoon (2pm)">Afternoon (2pm) ☀️</option>
+          <option value="Dinner (6pm)" selected>Dinner (6pm) 🍝</option>
+          <option value="Late night (9pm)">Late night (9pm) 🌙</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Anything else? (optional)</span>
+        <textarea id="note-input" rows="2" maxlength="200" placeholder="e.g. you're carrying me in ranked after"></textarea>
+      </label>
+      <div class="btn-row">
+        <button class="btn btn-ghost small" data-back="step-gifts">← Back</button>
+        <button id="when-next" class="btn btn-yes small" disabled>Lock it in 🔒</button>
+      </div>
+    </section>
+
+    <!-- STEP 4: Done -->
+    <section id="step-done" class="card step">
+      <div class="mascot bounce" aria-hidden="true">💖</div>
+      <h1>It's a date!</h1>
+      <p>Here's the plan. Send it to me so I know 😌</p>
+      <div id="summary" class="summary"></div>
+      <div class="btn-row wrap">
+        <button id="copy-btn" class="btn btn-yes small">📋 Copy</button>
+        <a id="text-btn" class="btn btn-ghost small hidden" href="#">💬 Text me</a>
+        <a id="email-btn" class="btn btn-ghost small hidden" href="#">✉️ Email me</a>
+      </div>
+      <p id="copy-status" class="hint"></p>
+      <button class="link-btn" id="restart-btn">start over</button>
+    </section>
+  </main>
+
+  <footer class="site-footer">built with 💖 without using Replit</footer>
+
+  <div id="confetti" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
