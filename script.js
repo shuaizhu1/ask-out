@@ -264,6 +264,8 @@ const today = new Date();
 const toISO = (d) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 dateInput.min = toISO(today);
+dateInput.value = toISO(today);
+$("#when-next").disabled = false;
 
 dateInput.addEventListener("input", () => {
   $("#when-next").disabled = !dateInput.value;
@@ -282,7 +284,6 @@ $("#when-next").addEventListener("click", () => {
 /* =========================================================
    Step 4: Summary + sharing
    ========================================================= */
-const CAT_LABELS = { food: "🍜 Food", rp: "⚔️ League RP", plush: "🎀 Sanrio Plushies" };
 
 function getPicks() {
   const picks = { food: [], rp: [], plush: [] };
@@ -310,11 +311,8 @@ function buildPlainText() {
   const picks = getPicks();
   const lines = [`💖 ${crush} said YES to a date with ${CONFIG.yourName}!`, ""];
   lines.push(`📅 ${prettyDate(dateInput.value)} — ${$("#time-input").value}`, "");
-  Object.keys(picks).forEach((cat) => {
-    if (!picks[cat].length) return;
-    lines.push(CAT_LABELS[cat] + ":");
-    picks[cat].forEach((g) => lines.push(`  • ${g.emoji} ${g.name}`));
-  });
+  lines.push("🎁 Gift:");
+  Object.values(picks).flat().forEach((g) => lines.push(`  • ${g.emoji} ${g.name}`));
   const note = $("#note-input").value.trim();
   if (note) lines.push("", `📝 ${note}`);
   if (state.noCount > 0) lines.push("", `(tried to press No ${state.noCount} time${state.noCount === 1 ? "" : "s"} 🙄)`);
@@ -324,12 +322,10 @@ function buildPlainText() {
 function renderSummary() {
   const picks = getPicks();
   let html = `<h3>When</h3><p>${prettyDate(dateInput.value)} · ${escapeHTML($("#time-input").value)}</p>`;
-  Object.keys(picks).forEach((cat) => {
-    if (!picks[cat].length) return;
-    html += `<h3>${CAT_LABELS[cat]}</h3><ul>${picks[cat]
-      .map((g) => `<li>${g.emoji} ${g.name}</li>`)
-      .join("")}</ul>`;
-  });
+  html += `<h3>Gift</h3><ul>${Object.values(picks)
+    .flat()
+    .map((g) => `<li>${g.emoji} ${g.name}</li>`)
+    .join("")}</ul>`;
   const note = $("#note-input").value.trim();
   if (note) html += `<h3>Note</h3><p>${escapeHTML(note)}</p>`;
   if (state.noCount > 0) {
@@ -366,9 +362,8 @@ $("#restart-btn").addEventListener("click", () => {
   state.currentCat = "food";
   $$(".tab").forEach((t) => t.classList.toggle("active", t.dataset.cat === "food"));
   updateCart();
-  dateInput.value = "";
+  dateInput.value = toISO(new Date());
   $("#note-input").value = "";
-  $("#when-next").disabled = true;
   $("#copy-status").textContent = "";
   $("#no-hint").textContent = "";
   yesBtn.style.setProperty("--grow", 1);
